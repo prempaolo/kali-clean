@@ -1,0 +1,4 @@
+8c8
+< static char *font = "MesloLGS Nerd Font:pixelsize=14:antialias=true:autohint=true";
+---
+> static char *font = "MesloLGS Nerd Font:pixelsize=17:antialias=true:autohint=true";

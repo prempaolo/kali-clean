@@ -1,5 +1,6 @@
 #!/bin/bash
 
+CUR_PATH="$(pwd)"
 DIR="$HOME/.local/share/apps"
 
 sudo apt update
@@ -25,6 +26,7 @@ else
 	git pull
 fi
 cd "$DIR/st"
+patch config.h "$CUR_PATH/st_config.patch"
 make && sudo make install
 
 # Check if dwmblocks is already present and otherwise install it
