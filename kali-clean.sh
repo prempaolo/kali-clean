@@ -22,6 +22,7 @@ else
 fi
 cd "$DIR/dwm"
 patch dwm.c "$CUR_PATH/dwm_c.patch"
+patch config.h "$CUR_PATH/dwm_config.patch"
 make && sudo make install
 
 # Check if st is already present and otherwise install it
