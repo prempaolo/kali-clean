@@ -3,8 +3,13 @@
 CUR_PATH="$(pwd)"
 DIR="$HOME/.local/share/apps"
 
+if ! test -f repo; then
+  echo "Before running this script, please create a file called repo with the content of the private SSH key file to access the Github repos!!!"
+	exit 0
+fi
+
 sudo apt update
-sudo apt install libx11-dev libxinerama-dev libxft-dev libx11-xcb-dev libxcb-res0-dev libharfbuzz-dev suckless-tools fzf xwallpaper golang sxiv rofi neovim
+sudo apt install libx11-dev libxinerama-dev libxft-dev libx11-xcb-dev libxcb-res0-dev libharfbuzz-dev suckless-tools fzf xwallpaper golang sxiv rofi neovim cargo dunst cmake
 
 mkdir -p $DIR
 
@@ -16,6 +21,7 @@ else
 	git pull
 fi
 cd "$DIR/dwm"
+patch dwm.c "$CUR_PATH/dwm_c.patch"
 make && sudo make install
 
 # Check if st is already present and otherwise install it
@@ -37,6 +43,7 @@ else
 	git pull
 fi
 cd "$DIR/dwmblocks"
+patch config.h "$CUR_PATH/dwmblocks_config.patch"
 make && sudo make install
 
 # Check if dotfiles is already present and otherwise install it
@@ -47,6 +54,17 @@ else
 	git pull
 fi
 cd "$DIR/dotfiles"
+make && sudo make install
+
+
+# Check if navi is already present and otherwise install it
+if [[ ! -e "$DIR/navi" ]]; then
+	git clone https://github.com/denisidoro/navi "$DIR/navi"
+else
+	cd "$DIR/navi"
+	git pull
+fi
+cd "$DIR/navi"
 make && sudo make install
 
 # Download and install font 
@@ -72,10 +90,24 @@ git clone https://github.com/prempaolo/wallpapers "$HOME/Pictures/wallpapers" >/
 env CGO_ENABLED=0 go install -ldflags="-s -w" github.com/gokcehan/lf@latest
 sudo mv "$HOME/go/bin/lf" /bin/lf
 
-# Configure
-# sudo touch "$HOME/.xinitrc"
-# echo "exec dwm" | sudo tee "$HOME/.xinitrc"
-"$DIR/dotfiles/.local/bin/tools/copy-dotfiles -i $DIR/dotfiles/"
+# Install navi
+bash <(curl -sL https://raw.githubusercontent.com/denisidoro/navi/master/scripts/install)
+sudo mv "$HOME/.cargo/bin/navi" /bin/navi
+
+# Retrieve RedTeam repo
+cp "$CUR_PATH/repo" "$HOME/Documents/repo"
+cd "$HOME/Documents"
+chmod 600 repo
+git clone git@github.com:prempaolo/RedTeaming.git --config core.sshCommand="ssh -i repo"
+
+# Configure dotfiles
+"$DIR/dotfiles/.local/bin/tools/copy-dotfiles" -i "$DIR/dotfiles/"
+# Fix oh-my-zsh highlight plugin missing
+ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugin
+
+ # Install vim plugins
+ vim +PluginInstall +qall
+ "$HOME/.config/nvim/plugged/YouCompleteMe/install.py"
 
 ln -s ~/.xinitrc ~/.xsession
 sudo chmod 755 ~/.xinitrc

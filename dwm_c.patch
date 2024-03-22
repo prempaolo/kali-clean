@@ -1,0 +1,4 @@
+947c947
+<               sw = TEXTW(stext) - lrpad + 2 - padding_colors();
+---
+>               sw = TEXTW(stext) - 108;
