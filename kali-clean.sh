@@ -9,7 +9,7 @@ if ! test -f repo; then
 fi
 
 sudo apt update
-sudo apt install libx11-dev libxinerama-dev libxft-dev libx11-xcb-dev libxcb-res0-dev libharfbuzz-dev suckless-tools fzf xwallpaper golang sxiv rofi neovim cargo dunst cmake ueberzug
+sudo apt install libx11-dev libxinerama-dev libxft-dev libx11-xcb-dev libxcb-res0-dev libharfbuzz-dev suckless-tools fzf xwallpaper golang sxiv rofi neovim cargo dunst cmake ueberzug bat
 
 mkdir -p $DIR
 
@@ -59,6 +59,8 @@ fi
 "$DIR/dotfiles/.local/bin/tools/copy-dotfiles" -i "$DIR/dotfiles/"
 # Fix oh-my-zsh highlight plugin missing
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugin
+# Delete tmux from clean programs
+rm "$HOME/.local/bin/home-clean/tmux"
 
 # Download and install font 
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Meslo.zip
@@ -87,6 +89,8 @@ cp "$CUR_PATH/repo" "$HOME/Documents/repo"
 cd "$HOME/Documents"
 chmod 600 repo
 git clone git@github.com:prempaolo/RedTeaming.git --config core.sshCommand="ssh -i repo"
+cd "$HOME/Documents/RedTeaming"
+git config core.sshCommand "ssh -i $HOME/Documents/repo"
 
 # Download and install oh-my-zsh
 git clone https://github.com/ohmyzsh/ohmyzsh "$HOME/.local/share/oh-my-zsh" >/dev/null 2>&1
