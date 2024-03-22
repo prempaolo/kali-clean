@@ -9,7 +9,7 @@ if ! test -f repo; then
 fi
 
 sudo apt update
-sudo apt install libx11-dev libxinerama-dev libxft-dev libx11-xcb-dev libxcb-res0-dev libharfbuzz-dev suckless-tools fzf xwallpaper golang sxiv rofi neovim cargo dunst cmake
+sudo apt install libx11-dev libxinerama-dev libxft-dev libx11-xcb-dev libxcb-res0-dev libharfbuzz-dev suckless-tools fzf xwallpaper golang sxiv rofi neovim cargo dunst cmake ueberzug
 
 mkdir -p $DIR
 
@@ -53,19 +53,11 @@ else
 	cd "$DIR/dotfiles"
 	git pull
 fi
-cd "$DIR/dotfiles"
-make && sudo make install
 
-
-# Check if navi is already present and otherwise install it
-if [[ ! -e "$DIR/navi" ]]; then
-	git clone https://github.com/denisidoro/navi "$DIR/navi"
-else
-	cd "$DIR/navi"
-	git pull
-fi
-cd "$DIR/navi"
-make && sudo make install
+# Configure dotfiles
+"$DIR/dotfiles/.local/bin/tools/copy-dotfiles" -i "$DIR/dotfiles/"
+# Fix oh-my-zsh highlight plugin missing
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugin
 
 # Download and install font 
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Meslo.zip
@@ -76,11 +68,6 @@ rm Meslo.zip
 rm -r meslo
 wget https://github.com/powerline/fonts/raw/master/UbuntuMono/Ubuntu%20Mono%20derivative%20Powerline.ttf -P "$HOME/.fonts"
 fc-cache -fv
-
-# Download and install oh-my-zsh
-git clone https://github.com/ohmyzsh/ohmyzsh "$HOME/.local/share/oh-my-zsh" >/dev/null 2>&1
-mv "$HOME/.zshrc" "$HOME/.zshrc.old"
-cp "$HOME/.config/zsh/.zshrc" "$HOME/.zshrc"
 
 # Download wallpapers
 [ ! -d "$HOME/Pictures" ] && mkdir "$HOME/Pictures"
@@ -100,14 +87,14 @@ cd "$HOME/Documents"
 chmod 600 repo
 git clone git@github.com:prempaolo/RedTeaming.git --config core.sshCommand="ssh -i repo"
 
-# Configure dotfiles
-"$DIR/dotfiles/.local/bin/tools/copy-dotfiles" -i "$DIR/dotfiles/"
-# Fix oh-my-zsh highlight plugin missing
- git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugin
+# Download and install oh-my-zsh
+git clone https://github.com/ohmyzsh/ohmyzsh "$HOME/.local/share/oh-my-zsh" >/dev/null 2>&1
+mv "$HOME/.zshrc" "$HOME/.zshrc.old"
+cp "$HOME/.config/zsh/.zshrc" "$HOME/.zshrc"
 
  # Install vim plugins
- vim +PluginInstall +qall
- "$HOME/.config/nvim/plugged/YouCompleteMe/install.py"
+# vim +PluginInstall +qall
+# "$HOME/.config/nvim/plugged/YouCompleteMe/install.py"
 
 ln -s ~/.xinitrc ~/.xsession
 sudo chmod 755 ~/.xinitrc
