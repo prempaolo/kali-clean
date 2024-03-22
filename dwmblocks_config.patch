@@ -1,7 +1,7 @@
 4,6d3
-<       {"", "~/.local/bin/statusbar/btc",                                                      10,             7},
-<
-<       {"", "~/.local/bin/statusbar/music",                                            10,             1},
+< 	{"", "~/.local/bin/statusbar/btc",							10,		7},
+< 
+< 	{"", "~/.local/bin/statusbar/music",						10,		1},
 11,12d7
-<
-<       {"", "~/.local/bin/statusbar/volume",                                           0,              4},
+< 
+< 	{"", "~/.local/bin/statusbar/volume",						0,		4},
