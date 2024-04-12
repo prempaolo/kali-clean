@@ -9,7 +9,7 @@ if ! test -f repo; then
 fi
 
 sudo apt update
-sudo apt install libx11-dev libxinerama-dev libxft-dev libx11-xcb-dev libxcb-res0-dev libharfbuzz-dev suckless-tools fzf xwallpaper golang sxiv rofi neovim cargo dunst cmake ueberzug bat
+sudo apt install libx11-dev libxinerama-dev libxft-dev libx11-xcb-dev libxcb-res0-dev libharfbuzz-dev suckless-tools fzf xwallpaper golang sxiv rofi neovim cargo dunst cmake ueberzug bat xcompmgr
 
 mkdir -p $DIR
 
