@@ -1,10 +1,6 @@
 #!/usr/bin/sh
 
-dpkg -s lf &> /dev/null
-if [ $? -ne 0 ]
-        then
-		sudo apt install lf
-fi
+sudo apt install lf
 
 mkdir -p ~/.config/lf
 curl https://raw.githubusercontent.com/gokcehan/lf/master/etc/lfrc.example -o /home/kali/.config/lf/lfrc
