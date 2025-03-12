@@ -7,12 +7,11 @@ curl https://raw.githubusercontent.com/gokcehan/lf/master/etc/lfrc.example -o /h
 curl https://raw.githubusercontent.com/gokcehan/lf/master/etc/lfcd.sh -o /home/kali/.config/lf/lfcd.sh
 
 echo "
-
 LFCD=\"/home/kali/.config/lf/lfcd.sh\"
 if [ -f \"\$LFCD\" ]; then
     source \"\$LFCD\"
 fi
 alias lf='lfcd'" >> /home/kali/.zshrc
-echo "
 
+echo "
 set drawbox" >> /home/kali/.config/lf/lfrc
