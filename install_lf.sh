@@ -2,7 +2,7 @@
 
 sudo apt install lf
 
-mkdir -p ~/.config/lf
+mkdir -p /home/kali/.config/lf
 curl https://raw.githubusercontent.com/gokcehan/lf/master/etc/lfrc.example -o /home/kali/.config/lf/lfrc
 curl https://raw.githubusercontent.com/gokcehan/lf/master/etc/lfcd.sh -o /home/kali/.config/lf/lfcd.sh
 
