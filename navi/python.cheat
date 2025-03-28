@@ -1,0 +1,7 @@
+% python virtualenv
+
+# Create new virtualenv
+virtualenv ven
+
+# Source the virtualenv
+source venv/bin/activate
