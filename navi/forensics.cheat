@@ -1,0 +1,6 @@
+% forensics
+
+# Extract value from QR code image (need zbar-tools)
+zbarimg -q --raw <file>
+
+$ file: ls
