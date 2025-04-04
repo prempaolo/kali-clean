@@ -1,6 +1,9 @@
 % general
 
+$ file: ls
+
 # Print Markdown in terminal in a better way
 glow <file>
 
-$ file: ls
+# Unzip .tar.gz files
+tar -xvzf <file>
