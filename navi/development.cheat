@@ -1,0 +1,9 @@
+% development
+
+# Compile a C program for Windows 32bit
+i686-w64-mingw32-gcc -o <output> <input>
+
+# Compile a C program for Windows 64bit
+x86_64-w64-mingw32-gcc -o <output> <input>
+
+$ input: ls
